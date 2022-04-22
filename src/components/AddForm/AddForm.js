@@ -15,8 +15,14 @@ class AddForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state.message)
-    this.reset();
+    const {message} = this.state;
+
+    if (message === " ") {
+      return alert(`enter a value`);
+    } else {
+      this.props.onSubmit(message)
+      this.reset();
+    }
   }
     
   reset = () => {
