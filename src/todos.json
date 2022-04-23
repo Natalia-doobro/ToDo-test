@@ -1,6 +1,0 @@
-[
-    {"id": "id-1", "text": "1", "completed": false},
-    {"id": "id-2", "text": "2", "completed": true},
-    {"id": "id-3", "text": "3", "completed": false},
-    {"id": "id-4", "text": "4", "completed": true}
-]

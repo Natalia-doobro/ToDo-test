@@ -1,7 +1,14 @@
 import React, {Component} from 'react'
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import actionsTodos from "../../redux/todos/todos-actions";
 
 
 class AddForm extends Component {
+  static propTypes = {
+    onSubmit: PropTypes.func,
+  };
+
   state = {
     message: '',
   };
@@ -20,7 +27,8 @@ class AddForm extends Component {
     if (message === " ") {
       return alert(`enter a value`);
     } else {
-      this.props.onSubmit(message)
+      this.props.onSubmit(message);
+      this.props.onSave();
       this.reset();
     }
   }
@@ -41,5 +49,14 @@ class AddForm extends Component {
   }
 }      
 
+const mapStateToProps = (state) => {
+  return {
+    masTodos: state.todos.items,
+  };
+};
 
-export default AddForm;
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit: (text) => dispatch(actionsTodos.addTodos(text)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddForm);

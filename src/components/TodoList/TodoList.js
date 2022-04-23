@@ -1,3 +1,5 @@
+import { connect } from "react-redux";
+import actionsTodos from "../../redux/todos/todos-actions";
 import PropTypes from "prop-types";
 import Todo from '../Todo'
 import style from './TodoList.module.css'
@@ -31,4 +33,26 @@ TodoList.propTypes = {
   onToggleCompleted: PropTypes.func.isRequired,
 };
 
-export default TodoList;
+const filterName = (todos, filter) => {
+  const normalizerForm = filter.toLowerCase();
+  return todos.filter((el) =>
+    el.text.toLowerCase().includes(normalizerForm)
+  );
+};
+
+const mapStateToProps = (state) => {
+  const { items, filter } = state.todos;
+
+  const filterItems = filterName(items, filter);
+
+  return {
+    todos: filterItems,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  onDeleteTodo: (id) => dispatch(actionsTodos.deliteTodos(id)),
+  onToggleCompleted: (id) => dispatch(actionsTodos.toggleCompleted(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoList);

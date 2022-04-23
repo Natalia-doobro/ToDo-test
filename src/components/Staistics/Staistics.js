@@ -1,3 +1,4 @@
+import { connect } from "react-redux";
 
 const Staistics = ({amount, done}) =>{
     return (
@@ -9,4 +10,13 @@ const Staistics = ({amount, done}) =>{
     );
 }
 
-export default Staistics;
+
+const getCompletedTodoCount = todos => todos.reduce((total, todo) => (todo.completed ? total + 1 : total), 0,)
+
+  
+const mapStateToProps = (state) => ({
+  amount: state.todos.items.length,
+  done: getCompletedTodoCount(state.todos.items),
+});
+
+export default connect(mapStateToProps)(Staistics);
