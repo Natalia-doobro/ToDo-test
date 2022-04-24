@@ -2,22 +2,46 @@ import { connect } from "react-redux";
 import actionsTodos from "../../redux/todos/todos-actions";
 import PropTypes from "prop-types";
 import Todo from '../Todo'
-import style from './TodoList.module.css'
+import styled from 'styled-components'
+
+const ListTodo = styled.ul`
+  list-style: none;
+  padding: 20px 20px 20px;
+  -moz-column-count: 2; 
+  -webkit-column-count: 2;
+  column-count: 2;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+`
+
+const ItemTodo = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 400px;
+  min-height: 50px;
+  margin-bottom: 10px;
+  padding: 5px 10px 10px;
+  border-radius: 10px;
+  background: #596235;
+  border: 2px solid #2F3020;
+`
 
 const TodoList = ({todos, onDeleteTodo, onToggleCompleted}) => {
  return (
-    <ul>
+    <ListTodo>
          {todos.map(({id, text, completed}) => 
-             <li key={id} className={style.item}>
+             <ItemTodo key={id}>
                 <Todo 
                   text={text} 
                   completed={completed} 
                   onToggleCompleted={() => onToggleCompleted(id)} 
                   onDeleteTodo={() => onDeleteTodo(id)}
                 />
-            </li>
+            </ItemTodo>
         )}   
-    </ul>
+    </ListTodo>
  );
 }
 

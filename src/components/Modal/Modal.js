@@ -1,8 +1,26 @@
 import React, { Component } from "react";
 import { createPortal } from "react-dom";
-import s from "./Modal.module.css";
+import styled from 'styled-components'
 
 const modalRoot = document.querySelector('#modal-root');
+
+const Overlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8);
+`
+const ModalForm = styled.div`
+  max-width: 900px;
+  max-height: 600px;
+  padding: 30px 20px 30px;
+  background-color: #fff;
+`
 
 class Modal extends Component {
   componentDidMount() {
@@ -29,11 +47,11 @@ class Modal extends Component {
 
   render() {
     return createPortal(
-      <div className={s.Overlay} onClick={this.onClickOverlay}>
-        <div className={s.Modal}>
+      <Overlay onClick={this.onClickOverlay}>
+        <ModalForm>
           {this.props.children}
-        </div>
-      </div>
+        </ModalForm>
+      </Overlay>
       ,modalRoot
     );
   }
